@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "dev": "npx nodemon"
+    "dev": "npx nodemon",
+    "start": "node dist/index.js",
+    "build": "tsc",
+    "migrate": "drizzle-kit --config src/drizzle.config.ts migrate"
   },
   "keywords": [],
   "author": "",

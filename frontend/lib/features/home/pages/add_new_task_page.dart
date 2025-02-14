@@ -5,6 +5,7 @@ import 'package:frontend/features/home/cubit/tasks_cubit.dart';
 import 'package:frontend/features/home/pages/home_page.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AddNewTaskPage extends StatefulWidget {
   static MaterialPageRoute route() => MaterialPageRoute(
@@ -47,6 +48,7 @@ class _AddNewTaskPageState extends State<AddNewTaskPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       appBar: AppBar(
         title: const Text('Add New Task'),
         actions: [
@@ -67,9 +69,10 @@ class _AddNewTaskPageState extends State<AddNewTaskPage> {
               }
             },
             child: Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: EdgeInsets.all(8.0.r),
               child: Text(
                 DateFormat("MM-d-y").format(selectedDate),
+                style: TextStyle(fontSize: 16.sp),
               ),
             ),
           )
@@ -96,64 +99,70 @@ class _AddNewTaskPageState extends State<AddNewTaskPage> {
             );
           }
 
-          return Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Form(
-              key: formKey,
-              child: Column(
-                children: [
-                  TextFormField(
-                    controller: titleController,
-                    decoration: const InputDecoration(
-                      hintText: 'Title',
+          return SingleChildScrollView(
+            child: Padding(
+              padding: EdgeInsets.all(20.0.r),
+              child: Form(
+                key: formKey,
+                child: Column(
+                  children: [
+                    TextFormField(
+                      controller: titleController,
+                      decoration: InputDecoration(
+                        hintText: 'Title',
+                        contentPadding: EdgeInsets.symmetric(
+                            horizontal: 15.w, vertical: 10.h),
+                      ),
+                      validator: (value) {
+                        if (value == null || value.trim().isEmpty) {
+                          return "Title cannot be empty";
+                        }
+                        return null;
+                      },
                     ),
-                    validator: (value) {
-                      if (value == null || value.trim().isEmpty) {
-                        return "Title cannot be empty";
-                      }
-                      return null;
-                    },
-                  ),
-                  const SizedBox(height: 10),
-                  TextFormField(
-                    controller: descriptionController,
-                    decoration: const InputDecoration(
-                      hintText: 'Description',
+                    SizedBox(height: 10.h),
+                    TextFormField(
+                      controller: descriptionController,
+                      decoration: InputDecoration(
+                        hintText: 'Description',
+                        contentPadding: EdgeInsets.symmetric(
+                            horizontal: 15.w, vertical: 10.h),
+                      ),
+                      maxLines: 4,
+                      validator: (value) {
+                        if (value == null || value.trim().isEmpty) {
+                          return "Description cannot be empty";
+                        }
+                        return null;
+                      },
                     ),
-                    maxLines: 4,
-                    validator: (value) {
-                      if (value == null || value.trim().isEmpty) {
-                        return "Description cannot be empty";
-                      }
-                      return null;
-                    },
-                  ),
-                  const SizedBox(height: 10),
-                  ColorPicker(
-                    heading: const Text('Select color'),
-                    subheading: const Text('Select a different shade'),
-                    onColorChanged: (Color color) {
-                      setState(() {
-                        selectedColor = color;
-                      });
-                    },
-                    color: selectedColor,
-                    pickersEnabled: const {
-                      ColorPickerType.wheel: true,
-                    },
-                  ),
-                  const SizedBox(height: 10),
-                  ElevatedButton(
-                    onPressed: createNewTask,
-                    child: const Text(
-                      'SUBMIT',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
+                    SizedBox(height: 10.h),
+                    ColorPicker(
+                      heading: const Text('Select color'),
+                      subheading: const Text('Select a different shade'),
+                      onColorChanged: (Color color) {
+                        setState(() {
+                          selectedColor = color;
+                        });
+                      },
+                      color: selectedColor,
+                      pickersEnabled: const {
+                        ColorPickerType.wheel: true,
+                      },
+                    ),
+                    SizedBox(height: 10.h),
+                    ElevatedButton(
+                      onPressed: createNewTask,
+                      child: Text(
+                        'SUBMIT',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18.sp,
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           );

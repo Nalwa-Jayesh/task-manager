@@ -9,6 +9,7 @@ import 'package:frontend/features/home/pages/add_new_task_page.dart';
 import 'package:frontend/features/home/widgets/date_selector.dart';
 import 'package:frontend/features/home/widgets/task_card.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class HomePage extends StatefulWidget {
   static MaterialPageRoute route() => MaterialPageRoute(
@@ -49,7 +50,7 @@ class _HomePageState extends State<HomePage> {
             icon: const Icon(
               CupertinoIcons.add,
             ),
-          )
+          ),
         ],
       ),
       body: BlocBuilder<TasksCubit, TasksState>(
@@ -101,8 +102,8 @@ class _HomePageState extends State<HomePage> {
                               ),
                             ),
                             Container(
-                              height: 10,
-                              width: 10,
+                              height: 10.h,
+                              width: 10.w,
                               decoration: BoxDecoration(
                                 color: strengthenColor(
                                   task.color,
@@ -112,18 +113,18 @@ class _HomePageState extends State<HomePage> {
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.all(12.0),
+                              padding: EdgeInsets.all(12.0.r),
                               child: Text(
                                 DateFormat.jm().format(task.dueAt),
-                                style: const TextStyle(
-                                  fontSize: 17,
+                                style: TextStyle(
+                                  fontSize: 17.sp,
                                 ),
                               ),
                             ),
                           ],
                         );
                       }),
-                )
+                ),
               ],
             );
           }

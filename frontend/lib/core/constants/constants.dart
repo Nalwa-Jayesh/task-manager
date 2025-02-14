@@ -1,3 +1,3 @@
 class Constants {
-  static String backendUri = "http://localhost:8000";
+  static String backendUri = "https://task-manager-gakh.onrender.com";
 }
